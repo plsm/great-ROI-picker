@@ -8,7 +8,7 @@ string AbstractMask::mask_filename (const string &folder, const string &default_
 {
 	string basename;
 	if (names.size () > 0)
-		basename = names [name_index];
+		basename = names [name_index] + ".png";
 	else {
 		int size = snprintf (nullptr, 0, default_name.c_str (), image_index);
 		if (size < 0)

@@ -2,6 +2,8 @@
 #define RING_HPP
 
 #include <QWidget>
+#include <vector>
+#include <string>
 
 #include "ui_ring-form.h"
 
@@ -21,6 +23,7 @@ class MaskRingForm : public QWidget
 public:
 	explicit MaskRingForm (QWidget *parent, int width, int height);
 	~MaskRingForm();
+	std::vector<std::string> get_mask_names () const;
 private:
 	Ui::MaskRing *ui;
 };

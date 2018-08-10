@@ -19,6 +19,7 @@ class TemplateManager:
 {
 protected:
 	MainWindow *main_window;
+	int count;
 	std::vector<F *> vector_forms;
 	std::vector<G *> vector_graphics;
 	L *lock;
@@ -26,6 +27,7 @@ public:
 	TemplateManager (std::string label, MainWindow *main_window):
 	   AbstractManager (label),
 	   main_window (main_window),
+	   count (0),
 	   lock (new L ())
 	{
 	}
@@ -42,6 +44,7 @@ public:
 	}
 	virtual void update_number_components (int width, int height)
 	{
+		this->count = this->main_window->ui->numberMasksSpinBox->value ();
 		for (int i = this->vector_forms.size (); i < this->main_window->ui->numberMasksSpinBox->value (); i++) {
 			F *form = new F (this->main_window->ui->maskFormsTabWidget, width, height);
 			G *graphics = new G (this->main_window->pixmap, form, width, height);
@@ -83,10 +86,15 @@ public:
       }                                                                                           \
    }
 
-	virtual void create_mask_files (const std::string &folder, int width, int height, const std::vector<std::string> names)
+	virtual void create_mask_files (const std::string &folder, int width, int height, bool use_default_names)
 	{
+		std::vector<std::string> names;
 		unsigned int image_index = 1;
-		for (G *g : this->vector_graphics) {
+		for (int i = 0; i < this->count; i++) {
+			G *g = this->vector_graphics [i];
+			F *f = this->vector_forms [i];
+			if (!use_default_names)
+				names = f->get_mask_names ();
 			image_index = g->save_masks (folder, width, height, names, image_index);
 		}
 	}

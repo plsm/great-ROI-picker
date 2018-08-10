@@ -89,9 +89,8 @@ void MainWindow::on_numberMasksSpinBox_valueChanged (int value)
 
 void MainWindow::on_createROIMasksPushButton_clicked()
 {
-	std::vector<std::string> names;
 	AbstractManager *manager = this->managers [this->ui->maskTypeComboBox->currentIndex ()];
-	manager->create_mask_files (this->working_folder, this->image.size ().width, this->image.size ().height, names);
+	manager->create_mask_files (this->working_folder, this->image.size ().width, this->image.size ().height, this->ui->useDefaultMaskFileNameCheckBox->isChecked ());
 	manager->create_property_files (this->working_folder);
 }
 
