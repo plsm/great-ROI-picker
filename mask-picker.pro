@@ -32,7 +32,11 @@ SOURCES += main.cpp\
     masks/abstract.cpp \
     masks/ring-manager.cpp \
     masks/ring-lock.cpp \
-    util-opencv-qt.cpp
+    util-opencv-qt.cpp \
+    masks/stadium-form.cpp \
+    masks/stadium-graphics.cpp \
+    masks/stadium-lock.cpp \
+    masks/stadium-manager.cpp
 
 HEADERS  += main-window.hpp \
     masks/ring-form.hpp \
@@ -43,8 +47,14 @@ HEADERS  += main-window.hpp \
     masks/abstract-manager.hpp \
     masks/template-manager.hpp \
     masks/ring-lock.hpp \
-    util-opencv-qt.hpp
+    util-opencv-qt.hpp \
+    masks/stadium-form.hpp \
+    masks/stadium-graphics.hpp \
+    masks/stadium-lock.hpp \
+    masks/stadium-manager.hpp
 
 FORMS    += main-window.ui \
     masks/ring-form.ui \
-    masks/ring-lock.ui
+    masks/ring-lock.ui \
+    masks/stadium-form.ui \
+    masks/stadium-lock.ui

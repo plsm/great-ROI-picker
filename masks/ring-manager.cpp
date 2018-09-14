@@ -24,10 +24,10 @@ void RingManager::connect_components (MaskRingForm *form, MaskRingGraphics *grap
 
 void RingManager::lockInnerRadiusCheckBox (int state)
 {
-	LOCK_COMPONENTS(state, innerRadiusSpinBox, lock_inner_radius)
+	LOCK_COMPONENTS(state, innerRadiusSpinBox, lock_inner_radius, MaskRingForm, MaskRingGraphics)
 }
 
 void RingManager::lockOuterRadiusCheckBox (int state)
 {
-	LOCK_COMPONENTS(state, outerRadiusSpinBox, lock_outer_radius)
+	LOCK_COMPONENTS(state, outerRadiusSpinBox, lock_outer_radius, MaskRingForm, MaskRingGraphics)
 }

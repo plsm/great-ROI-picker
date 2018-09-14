@@ -1,29 +1,29 @@
-#ifndef RING_GRAPHICS_H
-#define RING_GRAPHICS_H
+#ifndef ROIGOSTADIUMSTANDARD_H
+#define ROIGOSTADIUMSTANDARD_H
 
 #include <QGraphicsObject>
 #include "abstract.hpp"
 
-class RingManager;
-class MaskRingForm;
+class MaskStadiumForm;
 
-class MaskRingGraphics:
+class MaskStadiumGraphics:
       public QGraphicsObject,
       public AbstractMask
 {
 	Q_OBJECT
-	friend class RingManager;
-
-private:
+public:
 	int center_x;
 	int center_y;
-	int inner_radius;
-	int outer_radius;
-	MaskRingGraphics *lock_inner_radius;
-	MaskRingGraphics *lock_outer_radius;
+	double angle;
+	int width;
+	int length;
+	int border;
+	MaskStadiumGraphics *lock_width;
+	MaskStadiumGraphics *lock_length;
+	MaskStadiumGraphics *lock_border;
 public:
-	MaskRingGraphics (QGraphicsItem *parent, MaskRingForm *form, int image_width, int image_height);
-	virtual ~MaskRingGraphics ();
+	MaskStadiumGraphics (QGraphicsItem *parent, MaskStadiumForm *form, int image_width, int image_height);
+	virtual ~MaskStadiumGraphics ();
 	void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
 	virtual QRectF boundingRect () const;
 	virtual unsigned int save_masks (const std::string &folder, int image_width, int image_height, const std::vector<std::string> names, unsigned int image_index) const;
@@ -31,8 +31,10 @@ public:
 public slots:
 	void setCenterX (int value);
 	void setCenterY (int value);
-	void setInnerRadius (int value);
-	void setOuterRadius (int value);
+	void setAngle (int value);
+	void setWidth (int value);
+	void setLength (int value);
+	void setBorder (int value);
 };
 
-#endif // RING_GRAPHICS_H
+#endif // ROIGOSTADIUMSTANDARD_H

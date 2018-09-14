@@ -9,8 +9,8 @@ protected:
 	AbstractManager (std::string label):
 	   label (label)
 	{}
-	virtual ~AbstractManager () {}
 public:
+	virtual ~AbstractManager () {}
 	const std::string label;
 	virtual void setup_components (int width, int height) = 0;
 	virtual void update_number_components (int width, int height) = 0;

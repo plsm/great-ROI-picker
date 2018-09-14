@@ -24,6 +24,8 @@ public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
 
+	void add_manager (AbstractManager *);
+
 private slots:
 	void on_loadImagePushButton_clicked();
 

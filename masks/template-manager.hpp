@@ -23,7 +23,7 @@ protected:
 	std::vector<F *> vector_forms;
 	std::vector<G *> vector_graphics;
 	L *lock;
-public:
+protected:
 	TemplateManager (std::string label, MainWindow *main_window):
 	   AbstractManager (label),
 	   main_window (main_window),
@@ -31,6 +31,7 @@ public:
 	   lock (new L ())
 	{
 	}
+public:
 	virtual ~TemplateManager () {}
 	virtual void setup_components (int width, int height)
 	{
@@ -63,25 +64,25 @@ public:
 			this->main_window->ui->maskFormsTabWidget->removeTab (this->main_window->ui->numberMasksSpinBox->value ());
 		}
 	}
-#define LOCK_COMPONENTS(STATE, SPINBOX, PROPERTY) \
+#define LOCK_COMPONENTS(STATE, SPINBOX, PROPERTY, FORM_T, GRAPHICS_T) \
 	/* enable the forms if it is unlocked, or if it is locked, only the visible form is enabled */ \
 	int index = this->main_window->ui->maskFormsTabWidget->currentIndex ();                        \
 	std::cout << "current selected form " << index + 1 << '\n'; \
 	std::cout << "state is " << STATE << '\n'; \
 	QWidget *widget = this->main_window->ui->maskFormsTabWidget->widget (index);                   \
-	for (MaskRingForm *f: this->vector_forms) {                                                    \
-	   bool enabled = state == Qt::Unchecked || (state == Qt::Checked && f == widget);             \
+	for (FORM_T *f: this->vector_forms) {                                                    \
+	   bool enabled = STATE == Qt::Unchecked || (STATE == Qt::Checked && f == widget);             \
 	   f->ui->SPINBOX->setEnabled (enabled);                                                       \
    }                                                                                              \
-	if (state == Qt::Unchecked) {                                                                  \
+	if (STATE == Qt::Unchecked) {                                                                  \
 	   /* graphics use their inner radius */                                                       \
-	   for (MaskRingGraphics *g: this->vector_graphics) {                                          \
+	   for (GRAPHICS_T *g: this->vector_graphics) {                                          \
 	      g->PROPERTY = 0;                                                                         \
       }                                                                                           \
    }                                                                                              \
-	else if (state == Qt::Checked) {                                                               \
-	   /* graphics use the inner radius of visible form */                                         \
-	   for (MaskRingGraphics *g: this->vector_graphics) {                                          \
+	else if (STATE == Qt::Checked) {                                                               \
+	   /* graphics use the property of visible form */                                             \
+	   for (GRAPHICS_T *g: this->vector_graphics) {                                                \
 	      g->PROPERTY = g != this->vector_graphics [index] ? this->vector_graphics [index] : 0;    \
       }                                                                                           \
    }

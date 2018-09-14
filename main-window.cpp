@@ -10,6 +10,7 @@
 #include "ui_main-window.h"
 
 #include "masks/ring-manager.hpp"
+#include "masks/stadium-manager.hpp"
 #include "util-opencv-qt.hpp"
 
 static char TEMPORARY_FOLDER_TEMPLATE[] = "/tmp/mask-picker-XXXXXX";
@@ -27,16 +28,23 @@ MainWindow::MainWindow(QWidget *parent) :
 	QGraphicsScene *scene = new QGraphicsScene ();
 	this->ui->graphicsView->setScene (scene);
 	scene->addItem (this->pixmap);
-	this->managers.push_back (new RingManager (this));
-	for (AbstractManager *m : this->managers) {
-		this->ui->maskTypeComboBox->addItem (m->label.c_str ());
-	}
+	this->add_manager (new RingManager (this));
+	this->add_manager (new MaskStadiumManager (this));
 	std::cout << "Temporary files are written to folder " << this->temporary_folder << '\n';
 }
 
 MainWindow::~MainWindow()
 {
 	delete ui;
+	for (AbstractManager *m : this->managers) {
+		delete m;
+	}
+}
+
+void MainWindow::add_manager (AbstractManager *manager)
+{
+	this->managers.push_back (manager);
+	this->ui->maskTypeComboBox->addItem (manager->label.c_str ());
 }
 
 void MainWindow::set_image (const std::string &image_filename)
